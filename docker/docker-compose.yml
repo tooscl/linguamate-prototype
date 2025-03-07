@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    container_name: lingua_db
+    restart: always
+    environment:
+      POSTGRES_USER: lingua
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: lingua_mate
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

@@ -3,5 +3,6 @@ uvicorn
 openai
 pydantic
 sqlalchemy
+psycopg2
 aiogram
 dotenv
