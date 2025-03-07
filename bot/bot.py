@@ -3,9 +3,9 @@ import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 
-from app.config import TOKEN
+from backend.config import TOKEN
 
-import app.telegram.messages as msg
+import bot.messages as msg
 
 logging.basicConfig(level=logging.INFO)
 
