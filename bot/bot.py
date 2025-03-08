@@ -2,11 +2,11 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
-import requests
+from backend.services.chat_ai import get_ai_response
 
 from config import TOKEN
 
-import messages as msg
+import bot.messages as msg
 
 logging.basicConfig(level=logging.INFO)
 
@@ -33,8 +33,8 @@ async def cmd_start(message: types.Message):
 # Работа с LLM
 @dp.message()
 async def handle_text(message: types.Message):
-    response = requests.post(f"{API_URL}/message", json={"user_id": message.from_user.id, "text": message.text})
-    await message.answer(response.json()["response"])
+    user_input = message.text
+    await message.answer(get_ai_response(user_input))
 
 async def main():
     await dp.start_polling(bot)

@@ -1,6 +1,5 @@
 fastapi
 uvicorn
-openai
 yandex-cloud-ml-sdk
 yc
 pydantic
