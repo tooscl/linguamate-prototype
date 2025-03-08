@@ -1,8 +1,11 @@
 fastapi
 uvicorn
 openai
+yandex-cloud-ml-sdk
+yc
 pydantic
 sqlalchemy
 psycopg2
 aiogram
 dotenv
+pycurl
