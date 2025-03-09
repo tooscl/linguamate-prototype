@@ -10,7 +10,7 @@ sdk = YCloudML(
 )
 # Настройка модели
 model = sdk.models.completions("yandexgpt-lite")
-model = model.config(temperature=0.7) # TODO: Сделать настройку температуры динамичной (эмоции перса)
+# model = model.config(temperature=0.7) # TODO: Сделать настройку температуры динамичной (эмоции перса)
 
 # Обращение к модели
 def get_ai_response(user_input: str) -> str:

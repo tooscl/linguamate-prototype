@@ -10,7 +10,7 @@ from bot.handlers import start, help, restart, feedback, echo
 logging.basicConfig(level=logging.INFO)
 
 # Создание объектов бота и диспетчера
-bot = Bot(token=TOKEN, parse_mode="HTML")
+bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 # Регистрация хендлеров
