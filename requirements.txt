@@ -3,3 +3,4 @@ SQLAlchemy
 asyncpg
 alembic
 python-dotenv
+yandex_cloud_ml_sdk

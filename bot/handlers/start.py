@@ -3,7 +3,7 @@ from aiogram.filters import Command
 
 router = Router()
 
-@router.message(Command("start"))
+@router.message(Command("start")) # TODO: FSM регистрации
 async def cmd_start(message: types.Message):
     await message.answer("""
 Привет! Это прототип LinguaMate. 

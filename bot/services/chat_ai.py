@@ -1,6 +1,6 @@
 from yandex_cloud_ml_sdk import YCloudML
 
-from config import YC_OAUTH_TOKEN, YC_FOLDER_ID
+from bot.config import YC_OAUTH_TOKEN, YC_FOLDER_ID
 
 
 # Создаём клиент для работы с ML API
