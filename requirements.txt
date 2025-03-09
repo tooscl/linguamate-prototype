@@ -1,5 +1,6 @@
 aiogram
 SQLAlchemy
+greenlet
 asyncpg
 alembic
 python-dotenv
