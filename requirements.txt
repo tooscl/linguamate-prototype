@@ -1,0 +1,5 @@
+aiogram
+SQLAlchemy
+asyncpg
+alembic
+python-dotenv
