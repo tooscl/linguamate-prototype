@@ -3,7 +3,7 @@ from aiogram.filters import Command
 
 router = Router()
 
-@router.message(Command("restart")) # TODO: /restart
+@router.message(Command("restart")) # TODO: /restart (FMS)
 async def cmd_start(message: types.Message):
     await message.answer("""
 СДЕЛАЙ ПОДТВЕРЖДЕНИЕ СБРОСА ДАННЫХ, НАСТРОЕК

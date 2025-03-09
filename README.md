@@ -1,0 +1,4 @@
+### Стэк:
+- ~~FastAIP~~
+- aiogram
+- SQLAlchemy
