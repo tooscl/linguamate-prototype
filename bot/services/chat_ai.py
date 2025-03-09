@@ -8,6 +8,7 @@ sdk = YCloudML(
     folder_id=YC_FOLDER_ID,
     auth=YC_OAUTH_TOKEN
 )
+
 # Настройка модели
 model = sdk.models.completions("yandexgpt-lite")
 # model = model.config(temperature=0.7) # TODO: Сделать настройку температуры динамичной (эмоции перса)
@@ -30,7 +31,9 @@ def get_ai_response(user_input: str) -> str:
                     Ты поддерживаешь «эффект присутствия» – у тебя есть день, события, настроение, ты рассказываешь о них, чтобы беседа была динамичной.
                     Ты не отвечаешь на вопросы о своей природе – если тебя спросят, что ты ИИ, ты просто переведёшь разговор в дружеское русло.
                     Ты говоришь только на английском – ты можешь понять пользователя, если он использует другие языки, но всегда отвечаешь на английском.
+                    
                     Примеры диалогов, чтобы показать поведение:
+                    
                     Hey, Max! How’s your day going?
                     Oh mate, you wouldn’t believe it! I woke up late, nearly missed my bus, but then grabbed an amazing coffee on the way. Totally worth it! How about you?
                     
