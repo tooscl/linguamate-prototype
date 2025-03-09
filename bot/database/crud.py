@@ -3,7 +3,19 @@ from sqlalchemy.future import select
 from bot.database.models import User, Message
 from datetime import datetime, timedelta
 
-async def create_user(db: AsyncSession, telegram_id: int, username: str = None, first_name: str = None, last_name: str = None):
+
+async def create_user(db: AsyncSession, telegram_id: int, username: str = None, first_name: str = None,
+                      last_name: str = None):
+    # Проверяем, существует ли пользователь с таким telegram_id
+    query = select(User).where(User.telegram_id == telegram_id)
+    result = await db.execute(query)
+    existing_user = result.scalar_one_or_none()
+
+    if existing_user:
+        # Если пользователь существует, возвращаем его
+        return existing_user
+
+    # Если пользователя нет, создаем нового
     user = User(
         telegram_id=telegram_id,
         username=username,

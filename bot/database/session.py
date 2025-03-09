@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 # Подключение к базе данных (например, PostgreSQL или SQLite)
-DATABASE_URL = "postgresql+asyncpg://user:password@localhost/mydatabase"
+DATABASE_URL = "postgresql+asyncpg://localhost:5433/postgres"
 
 # Асинхронный движок
 engine = create_async_engine(DATABASE_URL, echo=True)
