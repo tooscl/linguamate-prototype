@@ -21,6 +21,5 @@ AsyncSessionLocal = sessionmaker(
 # Создание всех таблиц
 async def init_db():
     async with engine.begin() as conn:
-        print(f"Подключаемся к адресу: {engine.url}")
         await conn.run_sync(Base.metadata.create_all)
 

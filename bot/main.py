@@ -22,10 +22,10 @@ async def register_handlers():
     dp.include_router(echo.router)
 
 # Регистрация команд для меню
-async def set_commands(bot: Bot):
+async def set_commands(bot: Bot): # TODO: добавь /about
     commands = [
         BotCommand(command="/start", description="Запустить бота"),
-        BotCommand(command="/help", description="Помощь"),
+        BotCommand(command="/help", description="Список команд"),
         BotCommand(command="/restart", description="Начать все заново"),
         BotCommand(command="/feeedback", description="Оставить нам обратную связь😊")
     ]
