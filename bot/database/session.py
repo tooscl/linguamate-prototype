@@ -5,8 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 # Базовый класс для моделей
 Base = declarative_base()
 
-# Подключение к базе данных (например, PostgreSQL или SQLite)
-DATABASE_URL = "postgresql+asyncpg://localhost:5433/postgres"
+# Подключение к базе данных
+DATABASE_URL = "postgresql+asyncpg://localhost:5433/linguamate"
 
 # Асинхронный движок
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -21,4 +21,6 @@ AsyncSessionLocal = sessionmaker(
 # Создание всех таблиц
 async def init_db():
     async with engine.begin() as conn:
+        print(f"Подключаемся к адресу: {engine.url}")
         await conn.run_sync(Base.metadata.create_all)
+

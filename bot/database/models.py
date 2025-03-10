@@ -5,6 +5,7 @@ from bot.database.session import Base
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = {"schema": "public"}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     telegram_id = Column(Integer, unique=True, nullable=False)
@@ -18,9 +19,10 @@ class User(Base):
 
 class Message(Base):
     __tablename__ = "messages"
+    __table_args__ = {"schema": "public"}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.telegram_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("public.users.id"), nullable=False)  # Указываем правильный PK
     role = Column(String, nullable=False)  # "user" или "assistant"
     text = Column(String, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
