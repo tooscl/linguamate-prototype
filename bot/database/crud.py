@@ -41,6 +41,6 @@ async def save_message(db: AsyncSession, user_id: int, role: str, text: str, ttl
 
 async def get_messages(db: AsyncSession, user_id: int, limit: int = 10):
     """Получить последние 10 сообщений для треда"""
-    query = select(Message).where(Message.user_id == user_id).order_by(Message.timestamp.desc()).limit(limit)
+    query = select(Message.text).where(Message.user_id == user_id).order_by(Message.timestamp.desc()).limit(limit)
     result = await db.execute(query)
     return result.scalars().all()
