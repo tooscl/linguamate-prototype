@@ -1,17 +1,21 @@
 from aiogram import Router, types
+from aiogram.utils.chat_action import ChatActionSender
+import asyncio
 
+from bot.middlewares.register import register_user
+from bot.middlewares.update_context import update_context
 from bot.services.chat_ai import get_ai_response
-from bot.database.crud import save_message, get_messages
-from bot.database.session import AsyncSessionLocal
-from bot.middlewares.register_new_user import rergister_user
+from bot.middlewares.get_context import get_context
 
 router = Router()
 
 @router.message()
 async def echo(message: types.Message):
-    async with AsyncSessionLocal() as db:
-        await rergister_user(db, message)
-        await save_message(db, message.from_user.id, "user", message.text)
-        context = await get_messages(db, message.from_user.id)
-    answer = get_ai_response(message.text, context)
-    await message.answer(answer)
+    async with ChatActionSender.typing(bot=message.bot, chat_id=message.chat.id):
+        await asyncio.sleep(2)
+        await register_user(message)# Симуляция времени обработки
+        context = await get_context(message)
+        print(context)
+        answer = get_ai_response(message.text, context)
+        await message.answer(answer)
+        await update_context(message, answer)

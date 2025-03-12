@@ -4,7 +4,7 @@ from aiogram.filters import Command
 router = Router()
 
 @router.message(Command("feedback")) # TODO: /feedback
-async def cmd_start(message: types.Message):
+async def cmd_feedback(message: types.Message):
     await message.answer("""
 РЕАЛИЗУЙ ФОРМУ СБОРА ОБРАТНОЙ СВЯЗИ
 """)
