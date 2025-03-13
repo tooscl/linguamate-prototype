@@ -14,7 +14,7 @@ model = sdk.models.completions("yandexgpt-lite")
 # model = model.config(temperature=0.7) # TODO: Сделать настройку температуры динамичной (эмоции перса)
 
 # Обращение к модели
-def get_ai_response(user_input: str, context: list) -> str:
+async def get_ai_response(user_input: str, context: list) -> str:
     """Обращается к Yandex Cloud ML API для генерации текста"""
     response = model.run(
         messages=[

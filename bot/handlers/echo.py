@@ -16,6 +16,6 @@ async def echo(message: types.Message):
         await register_user(message)# Симуляция времени обработки
         context = await get_context(message)
         print(context)
-        answer = get_ai_response(message.text, context)
+        answer = await get_ai_response(message.text, context)
         await message.answer(answer)
         await update_context(message, answer)
