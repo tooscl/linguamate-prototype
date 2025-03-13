@@ -3,6 +3,7 @@ import logging
 import os
 from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
+
 from bot.config import TOKEN
 from bot.handlers import start, help, restart, feedback, echo
 
