@@ -28,7 +28,7 @@ async def set_commands(bot: Bot): # TODO: добавь /about
         BotCommand(command="/start", description="Запустить бота"),
         BotCommand(command="/help", description="Список команд"),
         BotCommand(command="/restart", description="Начать все заново"),
-        BotCommand(command="/feeedback", description="Оставить нам обратную связь😊")
+        BotCommand(command="/feedback", description="Оставить нам обратную связь😊")
     ]
     await bot.set_my_commands(commands)
 
