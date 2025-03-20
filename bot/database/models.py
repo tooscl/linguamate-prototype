@@ -8,14 +8,17 @@ class User(Base):
     __tablename__ = "users"
     __table_args__ = {"schema": "public"}
 
-    user_id = Column(Integer, primary_key=True)
+    telegram_id = Column(Integer, primary_key=True)
     username = Column(String, nullable=True)
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
     registered_at = Column(DateTime, default=datetime.utcnow)
+    plan = Column(String, nullable=False, default="free")
 
     # Связь с таблицей сообщений
     messages = relationship("Message", back_populates="user")
+    # Связь с таблицей A/B тестов
+    ab_test_users = relationship("ABTestUser", back_populates="user")
 
 class Message(Base):
     __tablename__ = "messages"
@@ -34,38 +37,24 @@ class Message(Base):
 #  === Таблицы для проведения А/Б-тестов
 class ABTest(Base):
     __tablename__ = 'ab_tests'
+    __table_args__ = {"schema": "public"}
 
     id = Column(Integer, primary_key=True)
-    test_name = Column(String, nullable=False)
-    start_date = Column(DateTime, nullable=False, default=func.now())
-    end_date = Column(DateTime, nullable=True)
-    metric_name = Column(String, nullable=False)
-    description = Column(String)
+    name = Column(String, nullable=False)  # Название теста
+    description = Column(String, nullable=True)  # Описание теста
 
+    # Связь с участниками теста
     users = relationship("ABTestUser", back_populates="test")
-    results = relationship("ABTestResult", back_populates="test")
-
 
 class ABTestUser(Base):
     __tablename__ = 'ab_test_users'
+    __table_args__ = {"schema": "public"}
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, nullable=False)
-    test_id = Column(Integer, ForeignKey('ab_tests.id'))
-    group_name = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey("public.users.telegram_id"), nullable=False)
+    test_id = Column(Integer, ForeignKey('public.ab_tests.id'), nullable=False)
+    group_name = Column(String, nullable=False)  # Группа теста ("A" или "B")
 
-    __table_args__ = (CheckConstraint("group_name IN ('A', 'B')"),)
-
+    # Связи
+    user = relationship("User", back_populates="ab_test_users")
     test = relationship("ABTest", back_populates="users")
-
-
-class ABTestResult(Base):
-    __tablename__ = 'ab_test_results'
-
-    id = Column(Integer, primary_key=True)
-    test_id = Column(Integer, ForeignKey('ab_tests.id'))
-    user_id = Column(Integer, nullable=False)
-    metric_value = Column(Numeric, nullable=False)
-    timestamp = Column(DateTime, nullable=False, default=func.now())
-
-    test = relationship("ABTest", back_populates="results")

@@ -1,6 +1,6 @@
 import asyncio
 from bot.database.session import init_db
-from models import User, Message
+import models
 
 async def main():
     await init_db()

@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 async def create_user(db: AsyncSession, telegram_id: int, username: str = None, first_name: str = None,
                       last_name: str = None):
     # Проверяем, существует ли пользователь с таким telegram_id
-    query = select(User).where(User.user_id == telegram_id)
+    query = select(User).where(User.telegram_id == telegram_id)
     result = await db.execute(query)
     existing_user = result.scalar_one_or_none()
 
@@ -17,7 +17,7 @@ async def create_user(db: AsyncSession, telegram_id: int, username: str = None, 
 
     # Если пользователя нет, создаем нового
     user = User(
-        user_id=telegram_id,
+        telegram_id=telegram_id,
         username=username,
         first_name=first_name,
         last_name=last_name
