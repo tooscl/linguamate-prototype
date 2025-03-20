@@ -1,5 +1,5 @@
 from asyncpg.pgproto.pgproto import timedelta
-from sqlalchemy import Column, Integer, String, Numeric, DateTime, ForeignKey, CheckConstraint, func
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, CheckConstraint, func
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from bot.database.session import Base
@@ -35,26 +35,12 @@ class Message(Base):
     user = relationship("User", back_populates="messages")
 
 #  === Таблицы для проведения А/Б-тестов
-class ABTest(Base):
-    __tablename__ = 'ab_tests'
-    __table_args__ = {"schema": "public"}
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)  # Название теста
-    description = Column(String, nullable=True)  # Описание теста
-
-    # Связь с участниками теста
-    users = relationship("ABTestUser", back_populates="test")
-
 class ABTestUser(Base):
     __tablename__ = 'ab_test_users'
-    __table_args__ = {"schema": "public"}
-
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("public.users.telegram_id"), nullable=False)
-    test_id = Column(Integer, ForeignKey('public.ab_tests.id'), nullable=False)
-    group_name = Column(String, nullable=False)  # Группа теста ("A" или "B")
+    test_id = Column(Integer)
+    group_name = Column(String, nullable=False)
 
-    # Связи
+    # Связь с пользователями
     user = relationship("User", back_populates="ab_test_users")
-    test = relationship("ABTest", back_populates="users")
