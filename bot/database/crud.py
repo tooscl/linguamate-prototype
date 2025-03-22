@@ -1,7 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import func
 from bot.database.models import User, Message
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 async def create_user(db: AsyncSession, telegram_id: int, username: str = None, first_name: str = None,
@@ -44,6 +45,18 @@ async def get_messages(db: AsyncSession, user_id: int, limit: int = 10):
     query = select(Message.role, Message.text).where(Message.user_id == user_id).order_by(Message.timestamp.desc()).limit(limit)
     result = await db.execute(query)
     return result.all()
+
+async def count_messages_today(db: AsyncSession, user_id: int):
+    """Подсчитать количество сообщений пользователя за сегодня"""
+    today_start = datetime.combine(date.today(), datetime.min.time())
+    query = select(func.count()).where(
+        Message.user_id == user_id,
+        Message.timestamp >= today_start,
+        Message.role == "user"
+    )
+    result = await db.execute(query)
+    return result.scalar()
+
 
 async def delete_user(db: AsyncSession, user_id: int):
     await db.delete(User).filter(User.telegram_id == user_id)
