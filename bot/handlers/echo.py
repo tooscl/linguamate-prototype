@@ -14,7 +14,7 @@ router = Router()
 async def echo(message: types.Message):
     if await check_free_limit(message):
         await message.answer("Mate, you won’t believe it. My phone took a dive straight into my tea. Now it smells like bergamot, but typing’s a no-go for now. Hopefully, it dries out by tomorrow!😅")
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         await message.answer("Вы уже сегодня отправили n сообщений Максу\n\nЧто бы продолжить сегодня посмотрите рекламу или посмотрите раздел premium!")
         await message.answer_photo(types.FSInputFile("../bot/attachments/kupi-po-bratski.jpeg"))
 
